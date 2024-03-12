@@ -1,7 +1,9 @@
-import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:word_cracker/home_page.dart';
+import 'package:go_router/go_router.dart';
+import 'package:word_cracker/pages/game/game_page.dart';
+import 'package:word_cracker/pages/game/game_settings.dart';
+import 'package:word_cracker/pages/home_page.dart';
 import 'package:word_cracker/theme.dart';
 
 void main() {
@@ -11,12 +13,35 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final _routerDelegate = BeamerDelegate(
-      locationBuilder: RoutesLocationBuilder(routes: {
-    '/': (_, __, ___) => const HomePage(
-          key: ValueKey('homePage'),
-        )
-  }).call);
+  final GoRouter router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const HomePage(),
+        routes: [
+          ShellRoute(
+            builder: (BuildContext context, GoRouterState state, Widget child) {
+              return Scaffold(
+                body: child,
+              );
+            },
+            routes: [
+              GoRoute(
+                path: 'game',
+                builder: (context, state) => const GameSettings(),
+                routes: [
+                  GoRoute(
+                    path: 'play',
+                    builder: (context, state) => const GamePage(),
+                  )
+                ],
+              ),
+            ],
+          )
+        ],
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +51,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Word Cracker',
       theme: theme,
-      routeInformationParser: BeamerParser(),
-      routerDelegate: _routerDelegate,
+      routerConfig: router,
     );
   }
 }

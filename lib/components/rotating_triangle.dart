@@ -73,7 +73,7 @@ class TrianglePainter extends CustomPainter {
     final gradient = RadialGradient(
       colors: [
         Colors.white.withOpacity(0.5),
-        Colors.black
+        Colors.grey[900]!
       ], // Customize the colors as desired
       stops: const [0.3, 0.8],
       focal: Alignment.bottomCenter,

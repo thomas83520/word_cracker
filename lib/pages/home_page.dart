@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:word_cracker/components/rotating_triangle.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,9 +24,12 @@ class HomePage extends StatelessWidget {
               ),
               Positioned(
                 bottom: height * 0.8,
-                child: const Text(
+                child: Text(
                   'Word Cracker',
-                  style: TextStyle(color: Colors.white),
+                  style: GoogleFonts.kodeMono(
+                    color: Colors.white,
+                    fontSize: 40,
+                  ),
                 ),
               ),
               Positioned(
@@ -41,7 +44,9 @@ class HomePage extends StatelessWidget {
                     elevation: 4,
                     shadowColor: Colors.red,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go('/game');
+                  },
                   child: const Text(
                     'Nouvelle Partie',
                     style: TextStyle(color: Colors.white, fontSize: 25),
