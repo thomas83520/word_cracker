@@ -2,8 +2,6 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/semantics.dart';
 
 class RotatingTriangle extends StatefulWidget {
   const RotatingTriangle({super.key});
