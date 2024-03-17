@@ -68,6 +68,7 @@ class GameSettings extends StatelessWidget {
                         context.read<GameSettingsBloc>().add(RemoveTime());
                       },
                       icon: const Icon(Icons.remove),
+                      color: Colors.white,
                     ),
                     Expanded(
                         child: BlocBuilder<GameSettingsBloc, GameSettingsState>(
@@ -87,6 +88,7 @@ class GameSettings extends StatelessWidget {
                         context.read<GameSettingsBloc>().add(AddTime());
                       },
                       icon: const Icon(Icons.add),
+                      color: Colors.white,
                     ),
                   ],
                 ),
