@@ -76,7 +76,6 @@ class TrianglePainter extends CustomPainter {
       stops: const [0.3, 0.8],
       focal: Alignment.bottomCenter,
       center: Alignment.center,
-      focalRadius: -0.2,
     );
 
     // Add the triangle path

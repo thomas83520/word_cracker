@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +37,6 @@ class GameSettings extends StatelessWidget {
           title: const Text('Règles'),
           scrollable: true,
           content: const Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 "Vous devez faire deviner le mot inscrit à l'écran à votre coéquipier.",
@@ -73,8 +70,11 @@ class GameSettings extends StatelessWidget {
         children: [
           Positioned(
             child: TextButton(
-              onPressed: showDialog,
+              onPressed: () {
+                context.pop();
+              },
               child: const Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.arrow_back,
@@ -98,7 +98,7 @@ class GameSettings extends StatelessWidget {
             right: 0,
             child: TextButton(
               onPressed: () {
-                context.pop();
+                showDialog();
               },
               child: const Text(
                 'Règles',
