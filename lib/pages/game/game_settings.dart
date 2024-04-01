@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -12,15 +15,65 @@ class GameSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget adaptiveAction(
+        {required BuildContext context,
+        required VoidCallback onPressed,
+        required Widget child}) {
+      final ThemeData theme = Theme.of(context);
+      switch (theme.platform) {
+        case TargetPlatform.android:
+        case TargetPlatform.fuchsia:
+        case TargetPlatform.linux:
+        case TargetPlatform.windows:
+          return TextButton(onPressed: onPressed, child: child);
+        case TargetPlatform.iOS:
+        case TargetPlatform.macOS:
+          return CupertinoDialogAction(onPressed: onPressed, child: child);
+      }
+    }
+
+    void showDialog() {
+      showAdaptiveDialog(
+        context: context,
+        builder: (context) => AlertDialog.adaptive(
+          title: const Text('Règles'),
+          scrollable: true,
+          content: const Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Vous devez faire deviner le mot inscrit à l'écran à votre coéquipier.",
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text("Vous avez 3 chances."),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "Utiliser 1 mot non composé qui n'est pas de la même famille et qui ne commence pas par le même son.",
+              )
+            ],
+          ),
+          actions: <Widget>[
+            adaptiveAction(
+              context: context,
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Stack(
         children: [
           Positioned(
             child: TextButton(
-              onPressed: () {
-                context.pop();
-              },
+              onPressed: showDialog,
               child: const Row(
                 children: [
                   Icon(
@@ -38,6 +91,23 @@ class GameSettings extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+          Positioned(
+            right: 0,
+            child: TextButton(
+              onPressed: () {
+                context.pop();
+              },
+              child: const Text(
+                'Règles',
+                style: TextStyle(
+                  color: Colors.white,
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.white,
+                  fontSize: 11,
+                ),
               ),
             ),
           ),
